@@ -6,9 +6,12 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Modal,
+  Pressable,
+  TextInput
 } from "react-native"; //Importing React Native components
 import { LinearGradient } from "expo-linear-gradient";
-import background from "Gates/app/data/images/background.png"; //This is the way to include images
+import background from "../../data/images/background.png"; //This is the way to include images
 
 //StyleSheets on React, must use cammelCase
 const styles = StyleSheet.create({
@@ -17,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   background: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     bottom: 0,
@@ -47,45 +50,142 @@ const styles = StyleSheet.create({
     margin: 10,
     width: "70%",
     borderRadius: 5,
-
   },
   buttonText: {
     color: "whitesmoke",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 
 //This is the view that is going to be rendered, it's treated as a class that extends Component
 class StartScreen extends Component {
+  state = {
+    loginVisible: false,
+    signupVisible: false,
+  };
+
+  setLoginVisible = (visible) => {
+    this.setState({ loginVisible: visible });
+  };
+
+  setSignupVisible = (visible) => {
+    this.setState({ signupVisible: visible });
+  };
+
   render() {
+    const { loginVisible } = this.state;
+    const { signupVisible } = this.state;
     //View is what is going to be showed, style is applied like the example
     //Components are used like in-line html
     return (
       <View style={styles.container}>
         <ImageBackground source={background} style={styles.image}>
-        <LinearGradient
-          // Background Linear Gradient
-          colors={["transparent", "rgba(0,0,0,0.8)"]}
-          style={styles.background}
-        />
+          <LinearGradient
+            // Background Linear Gradient
+            colors={["transparent", "rgba(0,0,0,0.8)"]}
+            style={styles.background}
+          />
           <Image
-            source={require("Gates/app/data/images/LogoInfinityGates.png")}
+            source={require("../../data/images/LogoInfinityGates.png")}
             style={styles.logoGame}
           />
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={loginVisible}
+            onRequestClose={() => {
+              this.setLoginVisible(!loginVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <TextInput placeholder="Email" />
+                <TextInput secureTextEntry={true} placeholder="Password" />
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => this.setLoginVisible(!loginVisible)}
+                >
+                  <Text style={styles.textStyle}>Hide Modal</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "blue" }]}
-            onPress={() => console.log("button pressed")}
+            onPress={() => this.setLoginVisible(true)}
           >
             <Text style={styles.buttonText}>Identificarse</Text>
           </TouchableOpacity>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={signupVisible}
+            onRequestClose={() => {
+              this.setSignupVisible(!signupVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+              <TextInput 
+          placeholder="Email" />
+        <TextInput
+          secureTextEntry={true}
+          placeholder="Password"
+        />
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => this.setSignupVisible(!signupVisible)}
+                >
+                  <Text style={styles.textStyle}>Hide Modal</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "green" }]}
             title="Registrarse"
-            onPress={() => console.log("button 2 pressed")}
+            onPress={() => this.setSignupVisible(true)}
           >
             <Text style={styles.buttonText}>Registrarse</Text>
           </TouchableOpacity>
           <Image
-            source={require("Gates/app/data/images/logoSolarSoftware.png")}
+            source={require("../../data/images/logoSolarSoftware.png")}
             style={styles.logoSolar}
           />
         </ImageBackground>
