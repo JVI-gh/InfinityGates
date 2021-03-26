@@ -5,13 +5,16 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   Modal,
   Pressable,
-  TextInput
+  TextInput,
+  SafeAreaView,
 } from "react-native"; //Importing React Native components
 import { LinearGradient } from "expo-linear-gradient";
 import background from "../../data/images/background.png"; //This is the way to include images
+
+import SingUp from "../../components/SingUp";
+import LogIn from "../../components/LogIn";
 
 //StyleSheets on React, must use cammelCase
 const styles = StyleSheet.create({
@@ -99,21 +102,20 @@ class StartScreen extends Component {
     signupVisible: false,
   };
 
-  setLoginVisible = (visible) => {
-    this.setState({ loginVisible: visible });
+  setLoginVisible = () => {
+    this.setState({ loginVisible: !this.state.loginVisible });
   };
 
-  setSignupVisible = (visible) => {
-    this.setState({ signupVisible: visible });
+  setSignupVisible = () => {
+    this.setState({ signupVisible: !this.state.signupVisible });
   };
 
   render() {
-    const { loginVisible } = this.state;
-    const { signupVisible } = this.state;
+    const { loginVisible, signupVisible } = this.state;
     //View is what is going to be showed, style is applied like the example
     //Components are used like in-line html
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ImageBackground source={background} style={styles.image}>
           <LinearGradient
             // Background Linear Gradient
@@ -124,75 +126,61 @@ class StartScreen extends Component {
             source={require("../../data/images/LogoInfinityGates.png")}
             style={styles.logoGame}
           />
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={loginVisible}
-            onRequestClose={() => {
-              this.setLoginVisible(!loginVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <TextInput placeholder="Email" />
-                <TextInput secureTextEntry={true} placeholder="Password" />
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => this.setLoginVisible(!loginVisible)}
-                >
-                  <Text style={styles.textStyle}>Hide Modal</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
-          <TouchableOpacity
+          <Pressable
+            // BUTTON LOGIN
             style={[styles.button, { backgroundColor: "blue" }]}
-            onPress={() => this.setLoginVisible(true)}
+            onPress={() => this.setLoginVisible()}
           >
             <Text style={styles.buttonText}>Identificarse</Text>
-          </TouchableOpacity>
-
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={signupVisible}
-            onRequestClose={() => {
-              this.setSignupVisible(!signupVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-              <TextInput 
-          placeholder="Email" />
-        <TextInput
-          secureTextEntry={true}
-          placeholder="Password"
-        />
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => this.setSignupVisible(!signupVisible)}
-                >
-                  <Text style={styles.textStyle}>Hide Modal</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
-          <TouchableOpacity
+          </Pressable>
+          <Pressable
+            // BUTTON SINGUP
             style={[styles.button, { backgroundColor: "green" }]}
             title="Registrarse"
             onPress={() => this.setSignupVisible(true)}
           >
             <Text style={styles.buttonText}>Registrarse</Text>
-          </TouchableOpacity>
+          </Pressable>
+          <LogIn
+            visible={loginVisible}
+            onCloseModal={this.setLoginVisible}
+          />
+          <SingUp 
+            visible={signupVisible}
+            onCloseModal={this.setSignupVisible}
+          />
+
           <Image
             source={require("../../data/images/logoSolarSoftware.png")}
             style={styles.logoSolar}
           />
         </ImageBackground>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 //This is the way to export one "thing" in React
 export default StartScreen;
+
+/* <Modal
+  animationType="slide"
+  transparent={true}
+  visible={signupVisible}
+  onRequestClose={() => {
+    this.setSignupVisible(!signupVisible);
+  }}
+>
+  <View style={styles.centeredView}>
+    <View style={styles.modalView}>
+      <TextInput placeholder="Email" />
+      <TextInput secureTextEntry={true} placeholder="Password" />
+      <Pressable
+        style={[styles.button, styles.buttonClose]}
+        onPress={() => this.setSignupVisible(!signupVisible)}
+      >
+        <Text style={styles.textStyle}>Hide Modal</Text>
+      </Pressable>
+    </View>
+  </View>
+</Modal> */
