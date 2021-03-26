@@ -4,10 +4,7 @@ import {
   Image,
   StyleSheet,
   Text,
-  View,
-  Modal,
   Pressable,
-  TextInput,
   SafeAreaView,
 } from "react-native"; //Importing React Native components
 import { LinearGradient } from "expo-linear-gradient";
@@ -97,10 +94,13 @@ const styles = StyleSheet.create({
 
 //This is the view that is going to be rendered, it's treated as a class that extends Component
 class StartScreen extends Component {
-  state = {
-    loginVisible: false,
-    signupVisible: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      loginVisible: false,
+      signupVisible: false,
+    };
+  }
 
   setLoginVisible = () => {
     this.setState({ loginVisible: !this.state.loginVisible });
@@ -111,6 +111,7 @@ class StartScreen extends Component {
   };
 
   render() {
+    const { history } = this.props;
     const { loginVisible, signupVisible } = this.state;
     //View is what is going to be showed, style is applied like the example
     //Components are used like in-line html
@@ -141,14 +142,14 @@ class StartScreen extends Component {
           >
             <Text style={styles.buttonText}>Registrarse</Text>
           </Pressable>
-          <LogIn
-            visible={loginVisible}
-            onCloseModal={this.setLoginVisible}
-          />
-          <SingUp 
+          <LogIn visible={loginVisible} onCloseModal={this.setLoginVisible} />
+          <SingUp
             visible={signupVisible}
             onCloseModal={this.setSignupVisible}
           />
+          <Pressable title="change page" onPress={() => history.push("/Menu")}>
+            <Text>Change page</Text>
+          </Pressable>
 
           <Image
             source={require("../../data/images/logoSolarSoftware.png")}
