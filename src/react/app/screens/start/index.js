@@ -6,10 +6,10 @@ import {
   Text,
   Pressable,
   SafeAreaView,
+  View,
 } from "react-native"; //Importing React Native components
 import { LinearGradient } from "expo-linear-gradient";
 import background from "../../data/images/background.png"; //This is the way to include images
-
 
 //Importing custom components
 import SingUp from "../../components/SingUp";
@@ -37,13 +37,16 @@ const styles = StyleSheet.create({
   logoGame: {
     width: 350,
     height: 350,
-    marginBottom: 50,
   },
   logoSolar: {
     position: "absolute",
     bottom: 20,
     width: 300,
     height: 170,
+  },
+  buttonList: {
+    width: "100%",
+    alignItems: "center",
   },
   button: {
     alignItems: "center",
@@ -55,42 +58,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "whitesmoke",
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
   },
 });
 
@@ -115,7 +82,6 @@ class StartScreen extends Component {
   };
 
   render() {
-
     //Declaration of const and applying them to where it's needed
     const { history } = this.props;
     const { loginVisible, signupVisible } = this.state;
@@ -127,48 +93,48 @@ class StartScreen extends Component {
     return (
       /* SafeAreaView is almost the same as View, but the latter doesn't take into account mobile's top menu */
       <SafeAreaView style={styles.container}>
-
         {/* ImageBackground contains all the content just like a wrapper, otherwise it won't work */}
         <ImageBackground source={background} style={styles.image}>
-
           <LinearGradient
             // Background Linear Gradient
             colors={["transparent", "rgba(0,0,0,0.8)"]}
             style={styles.background}
           />
-        
+
           <Image
             //Logo of the game
-            source={require("../../data/images/LogoInfinityGates.png")}
+            source={require("../../data/images/logoInfinityGates.png")}
             style={styles.logoGame}
           />
+          <View style={styles.buttonList}>
+            <Pressable
+              // BUTTON LOGIN
+              style={[styles.button, { backgroundColor: "blue" }]}
+              onPress={() => this.setLoginVisible()}
+            >
+              <Text style={styles.buttonText}>Identificarse</Text>
+            </Pressable>
 
-          <Pressable
-            // BUTTON LOGIN
-            style={[styles.button, { backgroundColor: "blue" }]}
-            onPress={() => this.setLoginVisible()}
-          >
-            <Text style={styles.buttonText}>Identificarse</Text>
-          </Pressable>
-
-          <Pressable
-            // BUTTON SINGUP
-            style={[styles.button, { backgroundColor: "green" }]}
-            title="Registrarse"
-            onPress={() => this.setSignupVisible(true)}
-          >
-            <Text style={styles.buttonText}>Registrarse</Text>
-          </Pressable>
-
+            <Pressable
+              // BUTTON SINGUP
+              style={[styles.button, { backgroundColor: "green" }]}
+              title="Registrarse"
+              onPress={() => this.setSignupVisible(true)}
+            >
+              <Text style={styles.buttonText}>Registrarse</Text>
+            </Pressable>
+          </View>
 
           {/* Login and Signup components, these are modals */}
-          <LogIn visible={loginVisible} onCloseModal={this.setLoginVisible} />
-          <SingUp visible={signupVisible} onCloseModal={this.setSignupVisible}/>
-
-          {/* Test for navigation (TEMPORARY) */}
-          <Pressable title="change page" onPress={() => history.push("/Menu")}>
-            <Text>Change page</Text>
-          </Pressable>
+          <LogIn
+            visible={loginVisible}
+            onCloseModal={this.setLoginVisible}
+            history={history}
+          />
+          <SingUp
+            visible={signupVisible}
+            onCloseModal={this.setSignupVisible}
+          />
 
           {/* Logo for Solar Software */}
           <Image

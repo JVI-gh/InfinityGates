@@ -1,38 +1,69 @@
 import React, { Component } from "react"; //Importing React to create react components
-import { StyleSheet, Text, SafeAreaView, View, Pressable } from "react-native"; //Importing React Native components
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  View,
+  Pressable,
+  Image,
+  ImageBackground,
+  Dimensions,
+} from "react-native"; //Importing React Native components
+
+import background from "../../data/images/background.png";
+const { width, height } = Dimensions.get("window");
 
 //StyleSheets on React, must use cammelCase
 const styles = StyleSheet.create({
-  maincontainer: {
+  container: {
     flex: 1,
     alignItems: "center",
   },
-  container: {
+  image: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start", // if you want to fill rows left to right
+    resizeMode: "cover",
+    alignItems: "center",
+    width: "100%",
   },
-  containerbottom: {
+  menu1: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#0A1D2E",
+    width: width,
+    padding: 10,
+    paddingTop: 35,
+  },
+  menu2: {
     position: "absolute",
     bottom: 0,
-    left: 0,
-    flex: 1,
     flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start"
+    justifyContent: "space-between",
+    backgroundColor: "#0A1D2E",
+    width: width,
+    padding: 10,
   },
-  item: {
-    width: "50%", // is 50% of container width
+  center: {
+    alignItems: "center",
   },
-  textsizes: {
-    fontSize: 36,
+  text: {
+    color: "whitesmoke",
   },
-  bottombuttons: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    width: "30%"
+  icon: {
+    width: 70,
+    height: 70,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+  },
+  circle: {
+    marginTop: -70,
+    backgroundColor: "whitesmoke",
+    width: 120,
+    height: 120,
+    borderRadius: 120,
+    borderWidth: 5,
+    borderColor: "#0A1D2E",
   },
 });
 
@@ -40,36 +71,58 @@ const ABox = () => <SafeAreaView style={styles.box} />;
 
 //This is the view that is going to be rendered, it's treated as a class that extends Component
 class MenuScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    const { history } = this.props;
     return (
-      <SafeAreaView style={styles.maincontainer}>
-        <View style={styles.container}>
-
-          <Pressable style={[styles.item, { backgroundColor: "blue" }]}>
-            <Text style={styles.textsizes}>Button 1</Text>
+      <SafeAreaView style={styles.container}>
+        <ImageBackground source={background} style={styles.image}>
+          <View style={styles.menu1}>
+            <Pressable onPress={() => history.push("/")}>
+              <Image
+                source={require("../../data/images/icons/recursos2Blanco.png")}
+                style={styles.icon}
+              />
+            </Pressable>
+            <Pressable onPress={() => history.push("/")}>
+              <Image
+                source={require("../../data/images/icons/cuentaBlanco.png")}
+                style={styles.icon}
+              />
+            </Pressable>
+          </View>
+          <Pressable style={styles.circle} onPress={() => history.push("/")}>
+            <Image
+              source={require("../../data/images/logoInfinityGates.png")}
+              style={styles.logo}
+            />
           </Pressable>
-
-          <Pressable style={[styles.item, { backgroundColor: "red" }]}>
-            <Text style={styles.textsizes}>Button 2</Text>
-          </Pressable>
-
-        </View>
-
-        <View style={styles.container}>
-
-          <Pressable style={[styles.bottombuttons, { backgroundColor: "blue" }]}>
-            <Text style={styles.textsizes}>Button 1</Text>
-          </Pressable>
-
-          <Pressable style={[styles.bottombuttons, { backgroundColor: "red" }]}>
-            <Text style={styles.textsizes}>Button 2</Text>
-          </Pressable>
-
-          <Pressable style={[styles.bottombuttons, { backgroundColor: "green" }]}>
-            <Text style={styles.textsizes}>Button 3</Text>
-          </Pressable>
-
-        </View>
+          <View style={styles.menu2}>
+            <Pressable style={styles.center} onPress={() => history.push("/")}>
+              <Image
+                source={require("../../data/images/icons/personajes.png")}
+                style={styles.icon}
+              />
+              <Text style={styles.text}>Personajes</Text>
+            </Pressable>
+            <Pressable style={styles.center} onPress={() => history.push("/")}>
+              <Image
+                source={require("../../data/images/icons/play.png")}
+                style={styles.icon}
+              />
+              <Text style={styles.text}>Jugar</Text>
+            </Pressable>
+            <Pressable style={styles.center} onPress={() => history.push("/")}>
+              <Image
+                source={require("../../data/images/icons/inventarioBlanco.png")}
+                style={styles.icon}
+              />
+              <Text style={styles.text}>Inventario</Text>
+            </Pressable>
+          </View>
+        </ImageBackground>
       </SafeAreaView>
     );
   }

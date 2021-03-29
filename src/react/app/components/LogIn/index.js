@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   textInput: {
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   block: {
     margin: 10,
@@ -55,7 +55,7 @@ export default class index extends Component {
   }
 
   render() {
-    const { visible, onCloseModal } = this.props;
+    const { visible, onCloseModal, history } = this.props;
     const { username, password } = this.state;
     return (
       <Modal visible={visible} transparent={true} animationType="fade">
@@ -85,7 +85,8 @@ export default class index extends Component {
               />
             </View>
             <View style={styles.buttonRow}>
-              <Pressable style={[styles.button]} onPress={onCloseModal}>
+              {/* Test for navigation (TEMPORARY) */}
+              <Pressable style={[styles.button]} onPress={() => history.push("/Menu")}>
                 <Text style={styles.text}>Identificarse</Text>
               </Pressable>
             </View>
