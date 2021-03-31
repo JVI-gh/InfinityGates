@@ -1,14 +1,17 @@
-const mySecret = process.env['ps']
+//const mySecret = process.env['ps'];
+const mySecret = '8LI4HMVDNoAetqsQ';
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+console.log(mySecret);
+
 const app = express();
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 require('./api/middleware/auth.js');
 

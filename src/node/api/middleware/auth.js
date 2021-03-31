@@ -1,4 +1,3 @@
-const mySecret = process.env['st'];
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy
 const User = require('../models/User');
@@ -6,7 +5,8 @@ const User = require('../models/User');
 const JWTStrategy = require('passport-jwt').Strategy
 const ExtractJWT = require('passport-jwt').ExtractJwt
 
-const st = process.env['st'];
+//const st = process.env['st'];
+const st = 'solar_software';
 
 passport.use('signup', new localStrategy({
   usernameField: 'username',

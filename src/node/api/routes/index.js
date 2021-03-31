@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const st = process.env['st'];
+//const st = process.env['st'];
+const st = 'solar_software';
 
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
