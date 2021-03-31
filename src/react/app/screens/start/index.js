@@ -12,7 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import background from "../../data/images/background.png"; //This is the way to include images
 
 //Importing custom components
-import SingUp from "../../components/SingUp";
+import SignUp from "../../components/SignUp";
 import LogIn from "../../components/LogIn";
 
 //StyleSheets on React, must use cammelCase
@@ -116,7 +116,7 @@ class StartScreen extends Component {
             </Pressable>
 
             <Pressable
-              // BUTTON SINGUP
+              // BUTTON SIGNUP
               style={[styles.button, { backgroundColor: "green" }]}
               title="Registrarse"
               onPress={() => this.setSignupVisible(true)}
@@ -131,7 +131,7 @@ class StartScreen extends Component {
             onCloseModal={this.setLoginVisible}
             history={history}
           />
-          <SingUp
+          <SignUp
             visible={signupVisible}
             onCloseModal={this.setSignupVisible}
           />
