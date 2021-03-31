@@ -15,6 +15,8 @@ import background from "../../data/images/background.png"; //This is the way to 
 import SignUp from "../../components/SignUp";
 import LogIn from "../../components/LogIn";
 
+const APIserver = "http://10.0.2.2:3001/";
+
 //StyleSheets on React, must use cammelCase
 const styles = StyleSheet.create({
   container: {
@@ -81,6 +83,28 @@ class StartScreen extends Component {
     this.setState({ signupVisible: !this.state.signupVisible });
   };
 
+  createAcount = (username, password) => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      username: username,
+      password: password,
+    });
+
+    let requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(APIserver + "signup", requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
+
   render() {
     //Declaration of const and applying them to where it's needed
     const { history } = this.props;
@@ -134,6 +158,7 @@ class StartScreen extends Component {
           <SignUp
             visible={signupVisible}
             onCloseModal={this.setSignupVisible}
+            create={this.createAcount}
           />
 
           {/* Logo for Solar Software */}

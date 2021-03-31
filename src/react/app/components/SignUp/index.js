@@ -55,7 +55,7 @@ export default class index extends Component {
   }
 
   render() {
-    const { visible, onCloseModal } = this.props;
+    const { visible, onCloseModal, create } = this.props;
     const { username, password } = this.state;
     return (
       <Modal visible={visible} transparent={true} animationType="fade">
@@ -85,7 +85,7 @@ export default class index extends Component {
               />
             </View>
             <View style={styles.buttonRow}>
-              <Pressable style={[styles.button]} onPress={onCloseModal}>
+              <Pressable style={[styles.button]} onPress={() => create(username, password)}>
                 <Text style={styles.text}>Registrarse</Text>
               </Pressable>
             </View>
