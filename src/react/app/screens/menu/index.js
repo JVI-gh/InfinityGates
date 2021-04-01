@@ -1,4 +1,5 @@
-import React, { Component } from "react"; //Importing React to create react components
+//Importing React to create react components
+import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -128,4 +129,5 @@ class MenuScreen extends Component {
   }
 }
 
+//Exporting MenuScreen
 export default MenuScreen;

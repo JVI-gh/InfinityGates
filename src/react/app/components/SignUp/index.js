@@ -1,3 +1,4 @@
+//Imports
 import React, { Component } from "react";
 import {
   View,
@@ -9,6 +10,7 @@ import {
   Pressable,
 } from "react-native";
 
+//Stylesheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -45,7 +47,9 @@ const styles = StyleSheet.create({
   },
 });
 
+//Component declaration
 export default class index extends Component {
+  /* Props is populating the variables needed for the componet working */
   constructor(props) {
     super(props);
     this.state = {
@@ -58,11 +62,14 @@ export default class index extends Component {
     const { visible, onCloseModal, create } = this.props;
     const { username, password } = this.state;
     return (
+
       <Modal visible={visible} transparent={true} animationType="fade">
         <TouchableOpacity
           style={styles.container}
-          onPress={onCloseModal} // ESTO FUNCIONA REGULAR, se cierra clicando en la ventana en blanco no solo por fuera del formulario
+          onPress={onCloseModal} // It just works, for closing just click outside the modal or in the white window
         >
+
+          {/* Username input */}
           <View style={styles.content}>
             <View style={styles.block}>
               <Text>Nombre de usuario</Text>
@@ -74,6 +81,8 @@ export default class index extends Component {
                 clearButtonMode="always"
               />
             </View>
+
+            {/* Password input */}
             <View style={styles.block}>
               <Text>Contraseña</Text>
               <TextInput
@@ -84,12 +93,15 @@ export default class index extends Component {
                 clearButtonMode="always"
               />
             </View>
+
+            {/* Submit button for register */}
             <View style={styles.buttonRow}>
               <Pressable style={[styles.button]} onPress={() => create(username, password)}>
                 <Text style={styles.text}>Registrarse</Text>
               </Pressable>
             </View>
           </View>
+
         </TouchableOpacity>
       </Modal>
     );

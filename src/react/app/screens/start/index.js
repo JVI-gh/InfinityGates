@@ -1,4 +1,5 @@
-import React, { Component } from "react"; //Importing React to create react components
+//Importing React to create react components
+import React, { Component } from "react";
 import {
   ImageBackground,
   Image,
