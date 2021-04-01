@@ -11,6 +11,7 @@ import {
 } from "react-native"; //Importing React Native components
 import { LinearGradient } from "expo-linear-gradient";
 import background from "../../data/images/background.png"; //This is the way to include images
+import AsyncStorage from "@react-native-async-storage/async-storage"; //Importing Async storage to save data
 
 //Importing custom components
 import SignUp from "../../components/SignUp";
@@ -84,7 +85,8 @@ class StartScreen extends Component {
     this.setState({ signupVisible: !this.state.signupVisible });
   };
 
-  createAcount = (username, password) => {
+  //Signup function
+  createAccount = (username, password) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -104,11 +106,44 @@ class StartScreen extends Component {
       .then((response) => response.json())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
+    this.setSignupVisible(false);
+  };
+
+  login = (username, password) => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      username: username,
+      password: password,
+    });
+
+    let requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(APIserver + "login", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.token) {
+            try {
+              const jsonValue = JSON.stringify(result);
+              AsyncStorage.setItem("@storage_Key", jsonValue );
+              this.props.history.push("/Menu");
+            } catch (e) {
+              // saving error
+          }
+        }
+      })
+      .catch((error) => console.log("error", error));
   };
 
   render() {
     //Declaration of const and applying them to where it's needed
-    const { history } = this.props;
+    /* const { history } = this.props; */
     const { loginVisible, signupVisible } = this.state;
 
     //SafeAreaView is what is going to be showed, it's returned to the render method in charge of rendering a screen
@@ -127,7 +162,7 @@ class StartScreen extends Component {
           />
 
           <Image
-            //Logo of the game
+            //Game logo
             source={require("../../data/images/logoInfinityGates.png")}
             style={styles.logoGame}
           />
@@ -154,12 +189,12 @@ class StartScreen extends Component {
           <LogIn
             visible={loginVisible}
             onCloseModal={this.setLoginVisible}
-            history={history}
+            login={this.login}
           />
           <SignUp
             visible={signupVisible}
             onCloseModal={this.setSignupVisible}
-            create={this.createAcount}
+            create={this.createAccount}
           />
 
           {/* Logo for Solar Software */}

@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from "react-native"; //Importing React Native components
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import background from "../../data/images/background.png";
 const { width, height } = Dimensions.get("window");
 
@@ -67,8 +68,6 @@ const styles = StyleSheet.create({
     borderColor: "#0A1D2E",
   },
 });
-
-const ABox = () => <SafeAreaView style={styles.box} />;
 
 //This is the view that is going to be rendered, it's treated as a class that extends Component
 class MenuScreen extends Component {

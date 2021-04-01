@@ -59,7 +59,7 @@ export default class index extends Component {
   }
 
   render() {
-    const { visible, onCloseModal, history } = this.props;
+    const { visible, onCloseModal, login } = this.props;
     const { username, password } = this.state;
     return (
 
@@ -76,7 +76,7 @@ export default class index extends Component {
               <TextInput
                 style={styles.textInput}
                 value={username}
-                onChangeText={(username) => this.setState({ username })}
+                onChangeText={(user) => this.setState({ username:user })}
                 placeholder="Username..."
                 clearButtonMode="always"
               />
@@ -88,7 +88,7 @@ export default class index extends Component {
               <TextInput
                 style={styles.textInput}
                 value={password}
-                onChangeText={(password) => this.setState({ password })}
+                onChangeText={(pass) => this.setState({ password:pass })}
                 placeholder="Password..."
                 clearButtonMode="always"
               />
@@ -97,7 +97,7 @@ export default class index extends Component {
             {/* Submit button for login */}
             <View style={styles.buttonRow}>
               {/* Test for navigation (TEMPORARY) */}
-              <Pressable style={[styles.button]} onPress={() => history.push("/Menu")}>
+              <Pressable style={[styles.button]} onPress={() => login(username, password)}>
                 <Text style={styles.text}>Identificarse</Text>
               </Pressable>
             </View>

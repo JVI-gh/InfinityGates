@@ -76,7 +76,7 @@ export default class index extends Component {
               <TextInput
                 style={styles.textInput}
                 value={username}
-                onChangeText={(username) => this.setState({ username })}
+                onChangeText={(user) => this.setState({ username:user })}
                 placeholder="Username..."
                 clearButtonMode="always"
               />
@@ -88,7 +88,7 @@ export default class index extends Component {
               <TextInput
                 style={styles.textInput}
                 value={password}
-                onChangeText={(password) => this.setState({ password })}
+                onChangeText={(pass) => this.setState({ password:pass })}
                 placeholder="Password..."
                 clearButtonMode="always"
               />
