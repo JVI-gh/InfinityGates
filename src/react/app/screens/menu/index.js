@@ -11,9 +11,11 @@ import {
   Dimensions,
 } from "react-native"; //Importing React Native components
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import background from "../../data/images/background.png";
 const { width, height } = Dimensions.get("window");
+
+const APIserver = "http://10.0.2.2:3001/";
 
 //StyleSheets on React, must use cammelCase
 const styles = StyleSheet.create({
@@ -74,6 +76,46 @@ class MenuScreen extends Component {
   constructor(props) {
     super(props);
   }
+
+  requireAuth = async () => {
+    try {
+      const auth = JSON.parse(await AsyncStorage.getItem("@storage_Key"));
+      if (auth) {
+        let requestOptions = {
+          method: "GET",
+          redirect: "follow",
+        };
+
+        fetch(
+          APIserver + "main" + "?secret_token=" + auth.token,
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => {
+            if (result === "Unauthorized") {
+              this.props.history.push("/");
+              AsyncStorage.setItem("@storage_Key", "");
+            }
+          })
+          .catch((error) => console.log("error", error));
+      } else {
+        this.props.history.push("/");
+        AsyncStorage.setItem("@storage_Key", "");
+      }
+    } catch (e) {
+      console.log("error: " + e);
+    }
+  };
+
+  disconnect = () => {
+    AsyncStorage.setItem("@storage_Key", "");
+    this.props.history.push("/");
+  };
+
+  componentDidMount() {
+    this.requireAuth();
+  }
+
   render() {
     const { history } = this.props;
     return (
@@ -86,7 +128,7 @@ class MenuScreen extends Component {
                 style={styles.icon}
               />
             </Pressable>
-            <Pressable onPress={() => history.push("/")}>
+            <Pressable onPress={() => this.disconnect()}>
               <Image
                 source={require("../../data/images/icons/cuentaBlanco.png")}
                 style={styles.icon}

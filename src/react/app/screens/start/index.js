@@ -109,6 +109,26 @@ class StartScreen extends Component {
     this.setSignupVisible(false);
   };
 
+  isLogged = async () => {
+    const auth = JSON.parse(await AsyncStorage.getItem("@storage_Key"));
+      if (auth) {
+
+        let requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        
+        fetch(APIserver + "main" + "?secret_token=" + auth.token, requestOptions)
+          .then(response => response.text())
+          .then(result => {
+            if (result !== 'Unauthorized') {
+              this.props.history.push("/menu");
+            }
+          })
+          .catch(error => console.log('error', error));
+      }
+  }
+
   login = (username, password) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -129,17 +149,21 @@ class StartScreen extends Component {
       .then((response) => response.json())
       .then((result) => {
         if (result.token) {
-            try {
-              const jsonValue = JSON.stringify(result);
-              AsyncStorage.setItem("@storage_Key", jsonValue );
-              this.props.history.push("/Menu");
-            } catch (e) {
-              // saving error
+          try {
+            const jsonValue = JSON.stringify(result);
+            AsyncStorage.setItem("@storage_Key", jsonValue);
+            this.props.history.push("/Menu");
+          } catch (e) {
+            // saving error
           }
         }
       })
       .catch((error) => console.log("error", error));
   };
+
+  componentDidMount() {
+    this.isLogged();
+  }
 
   render() {
     //Declaration of const and applying them to where it's needed
