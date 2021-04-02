@@ -59,6 +59,7 @@ export default class index extends Component {
   }
 
   render() {
+    //Marks the functions and variables that the needed is going to use
     const { visible, onCloseModal, create } = this.props;
     const { username, password } = this.state;
     return (

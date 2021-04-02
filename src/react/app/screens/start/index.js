@@ -109,6 +109,7 @@ class StartScreen extends Component {
     this.setSignupVisible(false);
   };
 
+  //Checks if user have authorization over the route
   isLogged = async () => {
     const auth = JSON.parse(await AsyncStorage.getItem("@storage_Key"));
       if (auth) {
@@ -129,6 +130,7 @@ class StartScreen extends Component {
       }
   }
 
+  //If login form is right, it set up a key for credentials in AsyncStorage
   login = (username, password) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -192,7 +194,7 @@ class StartScreen extends Component {
           />
           <View style={styles.buttonList}>
             <Pressable
-              // BUTTON LOGIN
+              // Login button
               style={[styles.button, { backgroundColor: "blue" }]}
               onPress={() => this.setLoginVisible()}
             >
@@ -200,7 +202,7 @@ class StartScreen extends Component {
             </Pressable>
 
             <Pressable
-              // BUTTON SIGNUP
+              // Signup button
               style={[styles.button, { backgroundColor: "green" }]}
               title="Registrarse"
               onPress={() => this.setSignupVisible(true)}

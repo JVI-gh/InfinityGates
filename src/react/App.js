@@ -12,6 +12,7 @@ export default class App extends Component {
     return (
       <NativeRouter>
         <Switch>
+          {/* Routes are declared like below, the exact marks how the route must be, path creates a browser like path and component the screen*/}
           <Route exact path="/" component={Start} />
           <Route exact path="/menu" component={Menu} />
         </Switch>
