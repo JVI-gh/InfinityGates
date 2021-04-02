@@ -159,8 +159,8 @@ class MenuScreen extends Component {
               <Text style={styles.text}>Personajes</Text>
             </Pressable>
 
-            {/* Andrew */}
-            <Pressable style={styles.center} onPress={() => history.push("/")}>
+            {/* Play button */}
+            <Pressable style={styles.center} onPress={() => history.push("/game")}>
               <Image
                 source={require("../../data/images/icons/play.png")}
                 style={styles.icon}

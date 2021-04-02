@@ -3,6 +3,7 @@ import { NativeRouter, Switch, Route } from "react-router-native";
 
 import Start from "./app/screens/start"; //Importing Screen view
 import Menu from "./app/screens/menu"; //Importing Screen view
+import Game from "./app/screens/game"; //Importing Game view
 
 //Mount the App, this is where everything starts when up
 export default class App extends Component {
@@ -15,6 +16,7 @@ export default class App extends Component {
           {/* Routes are declared like below, the exact marks how the route must be, path creates a browser like path and component the screen*/}
           <Route exact path="/" component={Start} />
           <Route exact path="/menu" component={Menu} />
+          <Route exact path="/game" component={Game}/>
         </Switch>
       </NativeRouter>
     );
