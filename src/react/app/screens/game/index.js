@@ -9,8 +9,9 @@ import {
   Image,
   View,
 } from "react-native"; //Importing React Native components
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import Map from "../../components/Map";
 const { width, height } = Dimensions.get("window");
 
 const APIserver = "http://10.0.2.2:3001/";
@@ -35,33 +36,6 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingTop: 35,
     alignItems: "center",
-  },
-  tile: {
-    width: 50,
-    height: 50,
-    backgroundColor: "pink",
-  },
-  row: {
-    bottom: 0,
-    position: "absolute",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    width: "80%",
-  },
-  row1: {
-    marginBottom: 100,
-  },
-  row2: {
-    marginBottom: 200,
-  },
-  row3: {
-    marginBottom: 300,
-  },
-  row4: {
-    marginBottom: 400,
-  },
-  row5: {
-    marginBottom: 500,
   },
 });
 
@@ -122,31 +96,7 @@ class GameScreen extends Component {
               />
             </Pressable>
           </View>
-
-          <View style={[styles.row, styles.row5]}>
-            <Pressable style={styles.tile}></Pressable>
-          </View>
-
-
-          <View style={[styles.row, styles.row4]}>
-            <Pressable style={styles.tile}></Pressable>
-            <Pressable style={styles.tile}></Pressable>
-          </View>
-
-          <View style={[styles.row, styles.row3]}>
-            <Pressable style={styles.tile}></Pressable>
-          </View>
-
-          <View style={[styles.row, styles.row2]}>
-            <Pressable style={styles.tile}></Pressable>
-            <Pressable style={styles.tile}></Pressable>
-          </View>
-
-          <View style={[styles.row, styles.row1]}>
-            <Pressable style={styles.tile}></Pressable>
-            <Pressable style={styles.tile}></Pressable>
-            <Pressable style={styles.tile}></Pressable>
-          </View>
+          <Map />
         </View>
       </SafeAreaView>
     );
