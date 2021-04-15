@@ -2,12 +2,7 @@
 import React, { Component } from "react";
 import {
   View,
-  Text,
   StyleSheet,
-  Modal,
-  TouchableOpacity,
-  TextInput,
-  Pressable,
 } from "react-native";
 
 import Tile from "../Tiles";
@@ -86,7 +81,7 @@ export default class index extends Component {
   ramdomEvent = () => {
     let probability = Math.floor(Math.random() * RamdomTiles.length);
     return RamdomTiles[probability];
-  };
+  }
 
   advancePosition = () => {
       this.state.position++;
