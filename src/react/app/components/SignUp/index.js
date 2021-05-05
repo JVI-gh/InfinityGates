@@ -87,6 +87,7 @@ export default class index extends Component {
             <View style={styles.block}>
               <Text>Contraseña</Text>
               <TextInput
+                secureTextEntry={true}
                 style={styles.textInput}
                 value={password}
                 onChangeText={(pass) => this.setState({ password:pass })}

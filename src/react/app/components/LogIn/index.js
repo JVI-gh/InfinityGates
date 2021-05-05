@@ -63,13 +63,11 @@ export default class index extends Component {
     const { visible, onCloseModal, login } = this.props;
     const { username, password } = this.state;
     return (
-
       <Modal visible={visible} transparent={true} animationType="fade">
         <TouchableOpacity
           style={styles.container}
           onPress={onCloseModal} // It just works, for closing just click outside the modal or in the white window
         >
-
           {/* Username input */}
           <View style={styles.content}>
             <View style={styles.block}>
@@ -77,7 +75,7 @@ export default class index extends Component {
               <TextInput
                 style={styles.textInput}
                 value={username}
-                onChangeText={(user) => this.setState({ username:user })}
+                onChangeText={(user) => this.setState({ username: user })}
                 placeholder="Username..."
                 clearButtonMode="always"
               />
@@ -87,9 +85,10 @@ export default class index extends Component {
             <View style={styles.block}>
               <Text>Contraseña</Text>
               <TextInput
+                secureTextEntry={true}
                 style={styles.textInput}
                 value={password}
-                onChangeText={(pass) => this.setState({ password:pass })}
+                onChangeText={(pass) => this.setState({ password: pass })}
                 placeholder="Password..."
                 clearButtonMode="always"
               />
@@ -98,12 +97,14 @@ export default class index extends Component {
             {/* Submit button for login */}
             <View style={styles.buttonRow}>
               {/* Test for navigation (TEMPORARY) */}
-              <Pressable style={[styles.button]} onPress={() => login(username, password)}>
+              <Pressable
+                style={[styles.button]}
+                onPress={() => login(username, password)}
+              >
                 <Text style={styles.text}>Identificarse</Text>
               </Pressable>
             </View>
           </View>
-
         </TouchableOpacity>
       </Modal>
     );
