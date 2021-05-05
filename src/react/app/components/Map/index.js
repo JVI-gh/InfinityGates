@@ -86,7 +86,6 @@ export default class index extends Component {
   };
 
   globalChangeState = (tile) => {
-    console.log(tile);
     if(tile.state == 0){
       if(tile.level != 0) {
         this.state.tileMap[tile.level-1].forEach(tile2 => {

@@ -47,7 +47,6 @@ router.post('/login', async(req, res, next) => {
 
 //Main manu route, JWT auth is needed to access
 router.get('/main', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    console.log(req.query.secret_token);
     res.json({
         message: 'Working as intended',
         user: req.user,
